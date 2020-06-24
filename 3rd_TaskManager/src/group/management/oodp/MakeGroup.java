@@ -20,9 +20,9 @@ public class MakeGroup extends JFrame{
 	int i=0;
 	public void make(String name) throws HeadlessException {
 		JPanel panel = new JPanel();
-		Label l1 = new Label("ê·¸ë£¹ëª…");
-		Label l2 = new Label("ê·¸ë£¹ ì¢…ë¥˜");
-		Label l3 = new Label("ë©¤ë²„ ì„ íƒ ( í•œ ë²ˆì— ì„ íƒ í›„ '>' ë²„íŠ¼ì„ ëˆŒëŸ¬ì£¼ì„¸ìš”! )");
+		Label l1 = new Label("±×·ì¸í");
+		Label l2 = new Label("±×·ì Á¾·ù");
+		Label l3 = new Label("¸â¹ö ¼±ÅÃ ( ÇÑ ¹ø¿¡ ¼±ÅÃ ÈÄ '>' ¹öÆ°À» ´­·¯ÁÖ¼¼¿ä! )");
 		JRadioButton radio[] = new JRadioButton[3];
 		String group_type[] = {"School", "Company", "Other"}; 
 		ButtonGroup group = new ButtonGroup();
@@ -34,7 +34,7 @@ public class MakeGroup extends JFrame{
 			radio[i].setBounds(100+i*100, 50, 100, 30);
 		}
 		
-		JButton j3 = new JButton("ì¤‘ë³µí™•ì¸");
+		JButton j3 = new JButton("Áßº¹È®ÀÎ");
 		j3.setBounds(350, 10, 80, 35);
 		add(j3);
 		add(l1);
@@ -95,7 +95,7 @@ public class MakeGroup extends JFrame{
 				new ActionListener(){
 				   public void actionPerformed(ActionEvent e) {
 				    {
-				      copyJList.setListData( userJList.getSelectedValues() ); //copyJListì— ì„ íƒëœ ê°’ì„ ë„˜ê¹€.
+				      copyJList.setListData( userJList.getSelectedValues() ); //copyJList¿¡ ¼±ÅÃµÈ °ªÀ» ³Ñ±è.
 				     }   
 				   	}
 				   }	
@@ -105,15 +105,15 @@ public class MakeGroup extends JFrame{
 		add(copyScroll);
 		copyScroll.setBounds(270, 160, 140, 100);
 		
-		JButton j1 = new JButton("ë“±ë¡");
-		JButton j2 = new JButton("ì·¨ì†Œ");
+		JButton j1 = new JButton("µî·Ï");
+		JButton j2 = new JButton("Ãë¼Ò");
 		add(j1);
 		add(j2);
 		j1.setBounds(125, 330, 80, 30);
 		j2.setBounds(240, 330, 80, 30);
 		add(panel);
 		setSize(500,400);
-		setTitle("ê·¸ë£¹ ìƒì„±");
+		setTitle("±×·ì »ı¼º");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 		
@@ -121,12 +121,12 @@ public class MakeGroup extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(!isNameUnique) 
-					JOptionPane.showMessageDialog(null, "ê·¸ë£¹ ì¤‘ë³µ í™•ì¸ì„ í•´ì£¼ì„¸ìš”.");
+					JOptionPane.showMessageDialog(null, "±×·ì Áßº¹ È®ÀÎÀ» ÇØÁÖ¼¼¿ä.");
 				else {
 					GroupFactory factory;
-					if(group.getSelection().getActionCommand().equals("1"))
+					if(group.getSelection().getActionCommand().equals("0"))
 						factory = new SchoolGroupFactory();
-					else if (group.getSelection().getActionCommand().equals("0"))
+					else if (group.getSelection().getActionCommand().equals("1"))
 						factory = new CompanyGroupFactory();
 					else 
 						factory = new OtherGroupFactory();
@@ -156,7 +156,7 @@ public class MakeGroup extends JFrame{
 			    		while((str=logbuff.readLine())!=null){
 							array=str.split("/");
 							if(t1.getText().equals(array[0])) {
-								JOptionPane.showMessageDialog(null, "ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ê·¸ë£¹ëª…ì…ë‹ˆë‹¤.");
+								JOptionPane.showMessageDialog(null, "ÀÌ¹Ì Á¸ÀçÇÏ´Â ±×·ì¸íÀÔ´Ï´Ù.");
 							    duplicate = true;
 							    break;
 							}else {
@@ -165,7 +165,7 @@ public class MakeGroup extends JFrame{
 			    		}
 			    		if(!duplicate) {
 			    			isNameUnique = true;
-			    			JOptionPane.showMessageDialog(null, "ì‚¬ìš©ê°€ëŠ¥í•œ ê·¸ë£¹ëª…ì…ë‹ˆë‹¤.");
+			    			JOptionPane.showMessageDialog(null, "»ç¿ë°¡´ÉÇÑ ±×·ì¸íÀÔ´Ï´Ù.");
 			    		}
 					}
 					catch (IOException E10) {

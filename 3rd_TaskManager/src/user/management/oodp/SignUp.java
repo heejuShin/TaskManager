@@ -18,11 +18,11 @@ public class SignUp extends JFrame{
 	boolean isIdUnique=false;
 	public void SingUp() throws FileNotFoundException {
 		JPanel panel = new JPanel();
-		Label l1 = new Label("ì´ë¦„");
-		Label l2 = new Label("ì•„ì´ë””");
-		Label l3 = new Label("ë¹„ë°€ë²ˆí˜¸");
-		Label l4 = new Label("ì†Œì†");
-		Label l5 = new Label("ì†Œê°œ");
+		Label l1 = new Label("ÀÌ¸§");
+		Label l2 = new Label("¾ÆÀÌµğ");
+		Label l3 = new Label("ºñ¹Ğ¹øÈ£");
+		Label l4 = new Label("¼Ò¼Ó");
+		Label l5 = new Label("¼Ò°³");
 		add(l1);
 		add(l2);
 		add(l3);
@@ -39,9 +39,9 @@ public class SignUp extends JFrame{
 		t3.setEchoChar('*');
 		add(t4);
 		add(t5);
-		JButton j1 = new JButton("ë“±ë¡");
-		JButton j2 = new JButton("ì·¨ì†Œ");
-		JButton j3 = new JButton("ì¤‘ë³µí™•ì¸");
+		JButton j1 = new JButton("µî·Ï");
+		JButton j2 = new JButton("Ãë¼Ò");
+		JButton j3 = new JButton("Áßº¹È®ÀÎ");
 		add(j1);
 		add(j2);
 		add(j3);
@@ -60,7 +60,7 @@ public class SignUp extends JFrame{
 		j3.setBounds(330,50,120,35);
 		add(panel);
 		setSize(500,400);
-		setTitle("íšŒì›ê°€ì…");
+		setTitle("È¸¿ø°¡ÀÔ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 		j1.addActionListener(new ActionListener() {
@@ -68,7 +68,7 @@ public class SignUp extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				UserDAO userDAO = new UserDAO();
 				if(!isIdUnique) 
-					JOptionPane.showMessageDialog(null, "ì•„ì´ë”” ì¤‘ë³µ í™•ì¸ì„ í•´ì£¼ì„¸ìš”.");
+					JOptionPane.showMessageDialog(null, "¾ÆÀÌµğ Áßº¹ È®ÀÎÀ» ÇØÁÖ¼¼¿ä.");
 				else {
 					userDAO.addUser(t1.getText(),t2.getText(),t3.getText(),t4.getText(),t5.getText());
 					dispose();
@@ -93,7 +93,7 @@ public class SignUp extends JFrame{
 			    		while((str=logbuff.readLine())!=null){
 							array=str.split("/");
 							if(t2.getText().equals(array[1])) {
-								JOptionPane.showMessageDialog(null, "ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ì•„ì´ë””ì…ë‹ˆë‹¤.");
+								JOptionPane.showMessageDialog(null, "ÀÌ¹Ì Á¸ÀçÇÏ´Â ¾ÆÀÌµğÀÔ´Ï´Ù.");
 							    duplicate = true;
 							    break;
 							}else {
@@ -102,7 +102,7 @@ public class SignUp extends JFrame{
 			    		}
 			    		if(!duplicate) {
 			    			isIdUnique = true;
-			    			JOptionPane.showMessageDialog(null, "ì‚¬ìš©ê°€ëŠ¥í•œ IDì…ë‹ˆë‹¤.");
+			    			JOptionPane.showMessageDialog(null, "»ç¿ë°¡´ÉÇÑ IDÀÔ´Ï´Ù.");
 			    		}
 					}
 					catch (IOException E10) {

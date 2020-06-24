@@ -7,7 +7,7 @@ public class CompanyGroup extends Group{
 	private String hostName;
 	private String[] memberName;
 	public CompanyGroup() {
-		System.out.println("Company Groupì´ ìƒì„±ë˜ì—ˆìŠµë‹ˆë‹¤.");
+		System.out.println("Company GroupÀÌ »ı¼ºµÇ¾ú½À´Ï´Ù.");
 	}
 	@Override
 	void ManageMember() {
@@ -32,6 +32,6 @@ public class CompanyGroup extends Group{
 	@Override
 	String getEx() {
 		// TODO Auto-generated method stub
-		return "íšŒì‚¬ ì—…ë¬´, ìŠ¤ì¼€ì¥´, ë¯¸íŒ… ê´€ë¦¬ì— ìœ ìš©í•©ë‹ˆë‹¤.";
+		return "»ç¾÷ÀÚ¿ë";
 	}
 }

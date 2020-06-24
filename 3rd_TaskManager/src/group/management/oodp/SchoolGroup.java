@@ -7,7 +7,7 @@ public class SchoolGroup extends Group{
 	private String hostName;
 	private String[] memberName;
 	public SchoolGroup() {
-		System.out.println("School Groupì´ ìƒì„±ë˜ì—ˆìŠµë‹ˆë‹¤.");
+		System.out.println("School GroupÀÌ »ı¼ºµÇ¾ú½À´Ï´Ù.");
 	}
 	@Override
 	void ManageMember() {
@@ -32,7 +32,7 @@ public class SchoolGroup extends Group{
 	@Override
 	String getEx() {
 		// TODO Auto-generated method stub
-		return "í•™ìƒë“¤ì˜ íŒ€í”„ë¡œì íŠ¸, í˜‘ì—…ìš©ìœ¼ë¡œ ì‚¬ìš©í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.";
+		return "ÆÀÇÁ·ÎÁ§Æ®, °úÁ¦ °ü¸®";
 	}
 
 }

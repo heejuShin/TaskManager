@@ -25,7 +25,7 @@ public class Login extends JFrame{
     private JTextField userText;
     private boolean isloginChecked;
  
-    //Singleton ë””ìì¸ íŒ¨í„´
+    //Singleton µğÀÚÀÎ ÆĞÅÏ
     private static Login loginInstance = new Login();
     private Login(){
         setTitle("login");
@@ -100,13 +100,13 @@ public class Login extends JFrame{
     	UserDTO user = new UserDTO() ;
     	user = userdao.getUserUsingId(userText.getText());
     	if(user!=null &&  new String(passText.getPassword()).equals(user.getPassword())) {
-			JOptionPane.showMessageDialog(null, "ë¡œê·¸ì¸ ë˜ì—ˆìŠµë‹ˆë‹¤.");
+			JOptionPane.showMessageDialog(null, "·Î±×ÀÎ µÇ¾ú½À´Ï´Ù.");
 			isLoginSucceed = true;
 			main.gotoMenu(user);
 			dispose();
     	}
     	else {
-    		JOptionPane.showMessageDialog(null, "ë¡œê·¸ì¸ ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.");
+    		JOptionPane.showMessageDialog(null, "·Î±×ÀÎ ½ÇÆĞÇÏ¿´½À´Ï´Ù.");
     	}
     }
  

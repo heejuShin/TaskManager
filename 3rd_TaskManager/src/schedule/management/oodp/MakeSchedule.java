@@ -20,9 +20,6 @@ import user.management.oodp.UserDTO;
 import java.awt.*;
 import java.util.*;
 import java.text.*;
-import observer.design.pattern.oodp.*;
-import observer.design.pattern.oodp.Observer;
-
 
 public class MakeSchedule extends JFrame {
 	
@@ -81,12 +78,8 @@ public class MakeSchedule extends JFrame {
 		setSize(500,400);
 		setTitle("스케줄 생성");
 		setVisible(true);
-		SimpleDateFormat f = new SimpleDateFormat ("yyyy-MM-dd HH:mm");
 		
-		//Observer Pattern
-		Subscriber page = new Subscriber();
-		Observer ob1 = new ScheduleObserver();
-		page.subscribe(ob1);
+		
 		
 		
 		j1.addActionListener(new ActionListener() {
@@ -94,8 +87,7 @@ public class MakeSchedule extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					BufferedWriter bos = new BufferedWriter(new FileWriter("schedule.txt", true));
-				    	//Object timeval = spinner1.getModel().getValue();
-						String timeval = f.format(spinner1.getModel().getValue());
+				    	Object timeval = spinner1.getModel().getValue();
 				    	bos.write(group.getName()+"/");
 				    	bos.write(t1.getText()+"/");
 						bos.write(timeval+"/");
@@ -103,8 +95,6 @@ public class MakeSchedule extends JFrame {
 					    bos.write("!end!\n");
 						bos.close();
 						JOptionPane.showMessageDialog(null, t1.getText()+" 스케줄이 생성되었습니다.");
-						//Observer Pattern
-						page.renew();
 						dispose();
 				}catch(Exception ex) {
 						JOptionPane.showMessageDialog(null, "스케줄 생성에 실패했습니다.");

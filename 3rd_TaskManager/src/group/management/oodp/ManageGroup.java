@@ -3,7 +3,6 @@ package group.management.oodp;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.Label;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
@@ -37,7 +36,7 @@ public class ManageGroup extends JFrame implements ActionListener{
 	UserDTO user = new UserDTO();
 	GroupDTO group = new GroupDTO();
 
-	private JButton j1,j2,j3,j4,b1,b2,b3,b4;
+	private JButton j1,j2,j3,b1,b2,b3,b4;
 	private JLabel l1,l2;
 	Season season=new Season();
 	Spring s1=new Spring();
@@ -46,27 +45,25 @@ public class ManageGroup extends JFrame implements ActionListener{
 	Winter s4=new Winter();
 	public Color color;
 
-	public void screen(UserDTO user, Font f1) {
+	public void screen(UserDTO user) {
 		setLayout(null);
-		l1 = new JLabel("í™˜ì˜í•©ë‹ˆë‹¤.	"+ user.getName() +" ë‹˜!!");
-		l2 = new JLabel("ë°°ê²½ì„ ë°”ê¿‰ë‹ˆë‹¤. ë§˜ì— ë“œëŠ” ê³„ì ˆì„ ì„ íƒí•´ì£¼ì„¸ìš”. ");
+		l1 = new JLabel("È¯¿µÇÕ´Ï´Ù.	"+ user.getName() +" ´Ô!!");
+		l2 = new JLabel("¹è°æÀ» ¹Ù²ß´Ï´Ù. ¸¾¿¡ µå´Â °èÀıÀ» ¼±ÅÃÇØÁÖ¼¼¿ä. ");
 		add(l1);
 		add(l2);
 		l1.setBounds(20, 0, 200, 40);
 		l2.setBounds(20,120,400,35);
-		j1 = new JButton("ê·¸ë£¹ ìƒì„±"); add(j1);
-		j2 = new JButton("ê·¸ë£¹ ê´€ë¦¬"); add(j2);
-		j3 = new JButton("ìƒˆë¡œ ê³ ì¹¨"); add(j3);
-		j4 = new JButton("í™˜ê²½ ì„¤ì •"); add(j4);
-		b1 = new JButton("ë´„"); add(b1);
-		b2 = new JButton("ì—¬ë¦„"); add(b2);
-		b3 = new JButton("ê°€ì„"); add(b3);
-		b4 = new JButton("ê²¨ìš¸"); add(b4);
+		j1 = new JButton("±×·ì »ı¼º"); add(j1);
+		j2 = new JButton("±×·ì °ü¸®"); add(j2);
+		j3 = new JButton("»õ·Î °íÄ§"); add(j3);
+		b1 = new JButton("º½"); add(b1);
+		b2 = new JButton("¿©¸§"); add(b2);
+		b3 = new JButton("°¡À»"); add(b3);
+		b4 = new JButton("°Ü¿ï"); add(b4);
 	
-		j1.setBounds(130, 330, 100, 30);
-		j2.setBounds(270, 330, 100, 30);
+		j1.setBounds(150, 330, 80, 30);
+		j2.setBounds(250, 330, 80, 30);
 		j3.setBounds(400, 0, 80, 30);
-		j4.setBounds(300,0,80,30);
 		b1.setBounds(0,160,80,30);
 		b2.setBounds(0,200,80,30);
 		b3.setBounds(0,240,80,30);
@@ -74,7 +71,6 @@ public class ManageGroup extends JFrame implements ActionListener{
 		j1.addActionListener(this);
 		j2.addActionListener(this);
 		j3.addActionListener(this);
-		j4.addActionListener(this);
 		b1.addActionListener(this);
 		b2.addActionListener(this);
 		b3.addActionListener(this);
@@ -114,23 +110,12 @@ public class ManageGroup extends JFrame implements ActionListener{
 		}
 		
 		//add(panel);
-		l1.setFont(f1);
-		l2.setFont(f1);
-		j1.setFont(f1);
-		j2.setFont(f1);
-		j3.setFont(f1);
-		j4.setFont(f1);
-		b1.setFont(f1);
-		b2.setFont(f1);
-		b3.setFont(f1);
-		b4.setFont(f1);
 		setSize(500,400);
-		setTitle("ê·¸ë£¹ ìƒì„±/ê´€ë¦¬/ì„ íƒ");
+		setTitle("±×·ì »ı¼º/°ü¸®/¼±ÅÃ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 		setLocationRelativeTo(null);
 		setResizable(false);
-
 		
 		
 		j1.addActionListener(new ActionListener() {
@@ -145,6 +130,7 @@ public class ManageGroup extends JFrame implements ActionListener{
 			public void actionPerformed(ActionEvent e) {
 				ShowGroupInfo groupinfo = new ShowGroupInfo();
 				groupinfo.screen(user,color);
+				//JOptionPane.showMessageDialog(null, "¾ÆÁ÷ ±¸ÇöµÇÁö ¾ÊÀº ±â´ÉÀÔ´Ï´Ù¤Ğ¤Ğ");
 			}
 		});
 		j3.addActionListener(new ActionListener() {
@@ -152,22 +138,13 @@ public class ManageGroup extends JFrame implements ActionListener{
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				ManageGroup menu = new ManageGroup();
-		        menu.screen(user, f1);
-			}
-		});
-		j4.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Setting setting = new Setting();
-		        setting.screen(user);
-				dispose();
+		        menu.screen(user);
 			}
 		});
 		
 		
 		
 		for(int j=0; j<i; j++) {
-			btn[j].setFont(f1);
 			btn[j].addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -187,7 +164,7 @@ public class ManageGroup extends JFrame implements ActionListener{
 						factory = new OtherGroupFactory();
 					Group newG = factory.make(btnName);
 					Menu menu = new Menu();
-					menu.screen(user, newG, color, f1);
+					menu.screen(user, newG, color);
 				}
 			});
 		}

@@ -7,7 +7,7 @@ public class OtherGroup extends Group{
 	private String hostName;
 	private String[] memberName;
 	public OtherGroup() {
-		System.out.println("Company Groupì´ ìƒì„±ë˜ì—ˆìŠµë‹ˆë‹¤.");
+		System.out.println("Company GroupÀÌ »ı¼ºµÇ¾ú½À´Ï´Ù.");
 	}
 	@Override
 	void ManageMember() {
@@ -32,7 +32,7 @@ public class OtherGroup extends Group{
 	@Override
 	String getEx() {
 		// TODO Auto-generated method stub
-		return "ê¸°íƒ€ìš©ë„";
+		return "±âÅ¸±×·ì";
 	}
 
 }

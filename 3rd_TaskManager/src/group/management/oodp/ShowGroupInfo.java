@@ -3,11 +3,8 @@ package group.management.oodp;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -15,15 +12,10 @@ import java.util.Vector;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-import decorate.design.pattern.oodp.DecoName;
-import decorate.design.pattern.oodp.JustName;
-import decorate.design.pattern.oodp.IsLeaderTopping;
-import decorate.design.pattern.oodp.InChargeTopping;
-import factory.design.pattern.oodp.CompanyGroupFactory;
-import factory.design.pattern.oodp.GroupFactory;
-import factory.design.pattern.oodp.OtherGroupFactory;
-import factory.design.pattern.oodp.SchoolGroupFactory;
-
+import Decorate.design.pattern.oodp.DecoName;
+import Decorate.design.pattern.oodp.JustName;
+import Decorate.design.pattern.oodp.PerfectTopping;
+import Decorate.design.pattern.oodp.SuperTopping;
 import task.management.oodp.Task;
 import task.management.oodp.TaskMenu;
 import schedule.management.oodp.ScheduleMenu;
@@ -39,10 +31,10 @@ public class ShowGroupInfo extends JFrame{
 		StringBuilder sbuilder;
 		JScrollPane scrollList;
 		Vector<String> colNames = new Vector<>();
-		colNames.addElement("ê·¸ë£¹ëª…");
-		colNames.addElement("í˜¸ìŠ¤íŠ¸");
-		colNames.addElement("ë©¤ë²„");
-		colNames.addElement("ê·¸ë£¹ ì •ë³´");
+		colNames.addElement("±×·ì¸í");
+		colNames.addElement("È£½ºÆ®");
+		colNames.addElement("¸â¹ö");
+		colNames.addElement("±×·ì Å¸ÀÔ");
 		BufferedReader logbuff = null;
 		ArrayList<GroupDTO> groupList = new ArrayList<>();
 		GroupDAO dao = new GroupDAO();
@@ -56,10 +48,12 @@ public class ShowGroupInfo extends JFrame{
 		String str;		
 		try {
 			while ((str = logbuff.readLine()) != null) {
+				System.out.println("hello?");
 				ArrayList<String> memberList = new ArrayList<>();
 				String[] array = str.split("/");
 				int j=3;
 				while(!array[j].equals("!end!")) {
+					System.out.println(array[j]);
 					if(array[j].equals(user.getName()))
 						groupList.add(dao.getGroupUsingName(array[0]));
 					j++;
@@ -74,13 +68,9 @@ public class ShowGroupInfo extends JFrame{
 		model = new DefaultTableModel(colNames, 0);
 		tableView = new JTable(model);
 		scrollList = new JScrollPane(tableView);
-		
-		tableView.getColumnModel().getColumn(0).setPreferredWidth(100); 
-		tableView.getColumnModel().getColumn(1).setPreferredWidth(100);
-		tableView.getColumnModel().getColumn(2).setPreferredWidth(200);
-		tableView.getColumnModel().getColumn(3).setPreferredWidth(400);
+		//add(scrollList, BorderLayout.CENTER);
 		add(scrollList);
-		scrollList.setBounds(0, 10, 800, 300);
+		scrollList.setBounds(0, 10, 500, 300);
 
 		for (int i = 0; i < groupList.size(); i++) {
 			// setting member taskList
@@ -94,24 +84,16 @@ public class ShowGroupInfo extends JFrame{
 			rows.addElement(groupList.get(i).getName());
 			rows.addElement(groupList.get(i).getHostName());
 			rows.addElement(allUser);
-			GroupFactory factory;
-			if(groupList.get(i).getType()==0) factory = new SchoolGroupFactory();
-			else if (groupList.get(i).getType()==1) factory = new CompanyGroupFactory();
-			else factory = new OtherGroupFactory();
-			Group group = factory.make(groupList.get(i).getName());
-			rows.addElement(group.getEx());
+			rows.addElement("hello");
 			model.addRow(rows);
 		}
-		JButton j1 = new JButton("ë‹«ê¸°");
-		JButton j2 = new JButton("ì‚­ì œ");
+		JButton j1 = new JButton("´Ý±â");
 		add(j1);
-		add(j2);
-		j1.setBounds(410, 330, 100, 30);
-		j2.setBounds(290, 330, 100, 30);
+		j1.setBounds(200, 330, 100, 30);
 		
 		setLayout(null);
-		setSize(800,400);
-		setTitle("ë‚˜ì˜ ê·¸ë£¹ ì •ë³´");
+		setSize(500,400);
+		setTitle("³ªÀÇ ±×·ì Á¤º¸");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 		setLocationRelativeTo(null);
@@ -123,57 +105,6 @@ public class ShowGroupInfo extends JFrame{
 				dispose();
 			}
 		});
-		
-		j2.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// ì„ íƒí•œ ì¤„ (row)ë²ˆí˜¸ ì•Œì•„ë‚´ê¸°
-				int rowIndex = tableView.getSelectedRow();
-				// ì„ íƒ ì•ˆí•˜ê³  ëˆ„ë¥¼ ê²½ìš°
-				if (rowIndex == -1)
-					dispose();
-				model.removeRow(rowIndex);
-				deleteGroup(rowIndex, user);
-				
-			}
-		});
-
-	}
-	
-	private void deleteGroup(int rowIndex, UserDTO user) {
-		String outputData = "";
-		try {
-			BufferedReader br = new BufferedReader(new FileReader("group.txt"));
-			int count = 0;
-			String line = "";
-			while ((line = br.readLine()) != null) {
-
-				if (count == rowIndex) {
-					count++;
-					continue;
-				} else {
-					outputData += line + "\n";
-				}
-				
-				count++;
-			}
-			br.close();
-		} catch (FileNotFoundException e) {
-			e.getStackTrace();
-		} catch (IOException e) {
-			e.getStackTrace();
-		}
-		System.out.println("output: " + outputData);
-		try {
-			File file = new File("group.txt");
-			BufferedWriter fw = new BufferedWriter(new FileWriter(file));
-			fw.write(outputData);
-			fw.close();
-		} catch (FileNotFoundException e) {
-			e.getStackTrace();
-		} catch (IOException e) {
-			e.getStackTrace();
-		}
 
 	}
 	
@@ -181,7 +112,7 @@ public class ShowGroupInfo extends JFrame{
 
 
 //TO DO
-/* ê·¸ë£¹ ì„¤ëª… Template method ì‚¬ìš©í•´ì„œ ë„£ê¸°
- * ê·¸ë£¹ ìˆ˜ì •í•˜ë©´ ê·¸ë£¹ ì •ë³´ ì €ìž¥ë˜ê²Œ
- * ê·¸ë£¹ ì‚­ì œ í•˜ê¸°
+/* ±×·ì ¼³¸í Template method »ç¿ëÇØ¼­ ³Ö±â
+ * ±×·ì ¼öÁ¤ÇÏ¸é ±×·ì Á¤º¸ ÀúÀåµÇ°Ô
+ * ±×·ì »èÁ¦ ÇÏ±â
 */

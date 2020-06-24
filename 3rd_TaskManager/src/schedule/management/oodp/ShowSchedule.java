@@ -17,16 +17,12 @@ import javax.swing.table.DefaultTableModel;
 
 import group.management.oodp.Group;
 import group.management.oodp.GroupDTO;
-import task.management.oodp.ShowTask;
 import task.management.oodp.Task;
 import user.management.oodp.UserDTO;
 
 import java.awt.*;
 import java.util.*;
 import java.text.*;
-
-import observer.design.pattern.oodp.*;
-import observer.design.pattern.oodp.Observer;
 
 public class ShowSchedule extends JFrame {
 	
@@ -75,9 +71,9 @@ public class ShowSchedule extends JFrame {
 
 		model=new DefaultTableModel(colNames,0);
 		tableView=new JTable(model);
-		//panel.setLayout(new BorderLayout());
+		panel.setLayout(new BorderLayout());
 		scrollList=new JScrollPane(tableView);
-		add(scrollList,BorderLayout.CENTER);
+		panel.add(scrollList,BorderLayout.CENTER);
 
 		
 		for(int i=0; i<schedList.size(); i++) {
@@ -90,166 +86,26 @@ public class ShowSchedule extends JFrame {
 		}
 
 
-		JPanel bottomPanel = new JPanel();
-		bottomPanel.setLayout(new GridLayout(2, 1));
+		JButton j1 = new JButton("뒤로가기");
+		add(j1);
+		j1.setBounds(200, 380, 100, 30);
 
-		JTextField tfName = new JTextField(10);
-		JTextField tfDate= new JTextField(10);
-		JTextField tfContent = new JTextField(15);
-		panel.add(new JLabel("Schedule"));
-		panel.add(tfName);
-		panel.add(new JLabel("Date"));
-		panel.add(tfDate);
-		panel.add(new JLabel("Content"));
-		panel.add(tfContent);
-		bottomPanel.add(panel);
-
-		JPanel panel2 = new JPanel();
-		JButton btnMod = new JButton("수정");
-		JButton btnDel = new JButton("삭제");
-		JButton btnBack = new JButton("뒤로가기");
-		panel2.add(btnMod);
-		panel2.add(btnDel);
-		panel2.add(btnBack);
-		bottomPanel.add(panel2);
-
-		add(bottomPanel, BorderLayout.SOUTH);
+		add(panel);
 		setResizable(false);
 		setLocationRelativeTo(null);
-
-		setSize(900, 500);
+		setSize(600,450);
 		setTitle("스케줄 확인 페이지");
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
-		
-		//Observer Pattern
-		Subscriber page = new Subscriber();
-		Observer ob1 = new ScheduleObserver();
-		page.subscribe(ob1);
 
-		btnMod.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// 선택한 줄 (row)번호 알아내기
-				int rowIndex = tableView.getSelectedRow();
-				UpdateSched(rowIndex, group, tfName, tfDate, tfContent);
-				// 선택 안하고 누를 경우
-				if (rowIndex == -1)
-					JOptionPane.showMessageDialog(null, "아무것도 선택이 되지 않았습니다.");
-				// 선택하고 누를 경우
-				else {
-					dispose();
-					
-					//Observer Pattern
-					page.renew();
-					
-					ShowSchedule showsched =new ShowSchedule();
-					showsched.ShowSchedule(user,group);
-				}
-			}
-		});
 
-		btnDel.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// 선택한 줄 (row)번호 알아내기
-				int rowIndex = tableView.getSelectedRow();
-				// 선택 안하고 누를 경우
-				if (rowIndex == -1)
-					JOptionPane.showMessageDialog(null, "아무것도 선택이 되지 않았습니다.");
-				// 선택하고 누를 경우
-				else {
-					model.removeRow(rowIndex);
-					deleteSched(rowIndex, group, tfName, tfDate, tfContent);
-				}
-			}
-		});
-
-		// 뒤로가기
-		btnBack.addActionListener(new ActionListener() {
+		//뒤로가기
+		j1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
 		});
-	}
-
-	private void UpdateSched(int rowIndex, Group group, JTextField tfName, JTextField tfDate, JTextField tfContent) 
-	{
-		String task = tfName.getText();
-		String date = tfDate.getText();
-		String content = tfContent.getText();
-		String inputData = group.getName() + "/" + task + "/" + date + "/" + content + "/!end!";
-		String outputData = "";
-		try {
-			BufferedReader br = new BufferedReader(new FileReader("schedule.txt"));
-			int count = 0;
-			String line = "";
-			while ((line = br.readLine()) != null) {
-
-				if (count == rowIndex) {
-					outputData += inputData + "\n";
-				} else {
-					outputData += line + "\n";
-
-				}
-				
-				count++;
-			}
-			br.close();
-		} catch (FileNotFoundException e) {
-			e.getStackTrace();
-		} catch (IOException e) {
-			e.getStackTrace();
-		}
-		System.out.println("output: " + outputData);
-		try {
-			File file = new File("schedule.txt");
-			BufferedWriter fw = new BufferedWriter(new FileWriter(file));
-			fw.write(outputData);
-			fw.close();
-		} catch (FileNotFoundException e) {
-			e.getStackTrace();
-		} catch (IOException e) {
-			e.getStackTrace();
-		}
-
-	}
-	
-	private void deleteSched(int rowIndex, Group group, JTextField tfName, JTextField tfDate, JTextField tfContent) {
-		String outputData = "";
-		try {
-			BufferedReader br = new BufferedReader(new FileReader("schedule.txt"));
-			int count = 0;
-			String line = "";
-			while ((line = br.readLine()) != null) {
-
-				if (count == rowIndex) {
-					count++;
-					continue;
-				} else {
-					outputData += line + "\n";
-				}
-				
-				count++;
-			}
-			br.close();
-		} catch (FileNotFoundException e) {
-			e.getStackTrace();
-		} catch (IOException e) {
-			e.getStackTrace();
-		}
-		System.out.println("output: " + outputData);
-		try {
-			File file = new File("schedule.txt");
-			BufferedWriter fw = new BufferedWriter(new FileWriter(file));
-			fw.write(outputData);
-			fw.close();
-		} catch (FileNotFoundException e) {
-			e.getStackTrace();
-		} catch (IOException e) {
-			e.getStackTrace();
-		}
-
 	}
 	
 	

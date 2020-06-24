@@ -45,9 +45,9 @@ public class UserDAO {
 				bos.write(department+"/");
 				bos.write(intro+"\r\n");
 				bos.close();
-				JOptionPane.showMessageDialog(null, "íšŒì›ê°€ì…ì„ ì¶•í•˜í•©ë‹ˆë‹¤!");
+				JOptionPane.showMessageDialog(null, "È¸¿ø°¡ÀÔÀ» ÃàÇÏÇÕ´Ï´Ù!");
 		}catch(Exception ex) {
-				JOptionPane.showMessageDialog(null, "íšŒì›ê°€ì…ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤.");
+				JOptionPane.showMessageDialog(null, "È¸¿ø°¡ÀÔ¿¡ ½ÇÆĞÇß½À´Ï´Ù.");
 		}
 	}
 }

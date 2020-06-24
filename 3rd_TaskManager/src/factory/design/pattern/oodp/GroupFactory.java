@@ -35,16 +35,15 @@ public abstract class GroupFactory {
 			    bos.write(group.getName()+"/");
 			    bos.write(Integer.toString(group.getType())+"/");
 			    bos.write(Integer.toString(group.getNum())+"/");
-			    bos.write(group.getHostName()+"/"); //hostëŠ” ë§Œë“ ì‚¬ëžŒ
+			    bos.write(group.getHostName()+"/"); //host´Â ¸¸µç»ç¶÷
 			    for(int j=0; j<group.getNum()-1; j++) {
 			    	bos.write(group.getMemberName(j)+"/");
 			    }
 			    bos.write("!end!\n");
 				bos.close();
-				JOptionPane.showMessageDialog(null, group.getName()+" ê·¸ë£¹ì´ ìƒì„±ë˜ì—ˆìŠµë‹ˆë‹¤.");
+				JOptionPane.showMessageDialog(null, group.getName()+" ±×·ìÀÌ »ý¼ºµÇ¾ú½À´Ï´Ù.");
 		}catch(Exception ex) {
-				JOptionPane.showMessageDialog(null, "ê·¸ë£¹ ìƒì„±ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤.");
+				JOptionPane.showMessageDialog(null, "±×·ì »ý¼º¿¡ ½ÇÆÐÇß½À´Ï´Ù.");
 		}
 	}
-	
 }

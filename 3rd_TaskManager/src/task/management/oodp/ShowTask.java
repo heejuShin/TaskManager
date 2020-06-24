@@ -28,7 +28,6 @@ import javax.swing.table.DefaultTableModel;
 import group.management.oodp.Group;
 import group.management.oodp.GroupDTO;
 import user.management.oodp.UserDTO;
-import observer.design.pattern.oodp.*;
 
 public class ShowTask extends JFrame {
 	private int i = 0;
@@ -55,10 +54,10 @@ public class ShowTask extends JFrame {
 		try {
 			while ((str = logbuff.readLine()) != null) {
 				ArrayList<String> memberList = new ArrayList<>();
-				// arrayì— íŒŒì¼ì´ í•œì¤„ì”© ì €ì¥ë¨ [0]: group / [1] : task name /..
+				// array¿¡ ÆÄÀÏÀÌ ÇÑÁÙ¾¿ ÀúÀåµÊ [0]: group / [1] : task name /..
 				String[] array = str.split("/");
 
-				// ê°™ì€ groupì— ìˆëŠ” taskë“¤ì´ taskListì— ì €ì¥ë¨.
+				// °°Àº group¿¡ ÀÖ´Â taskµéÀÌ taskList¿¡ ÀúÀåµÊ.
 				if (array[0].equals(group.getName())) {
 					System.out.println(" Same !! ");
 					for (int i = 4; i < array.length - 1; i++) {
@@ -109,7 +108,7 @@ public class ShowTask extends JFrame {
 		JTextField tfEndday = new JTextField(8);
 		panel.add(new JLabel("Task"));
 		panel.add(tfName);
-		panel.add(new JLabel("Member(member1/member2 ì…ë ¥)"));
+		panel.add(new JLabel("Member(member1/member2 ÀÔ·Â)"));
 		panel.add(tfMember);
 		panel.add(new JLabel("StartDay"));
 		panel.add(tfStartday);
@@ -118,9 +117,9 @@ public class ShowTask extends JFrame {
 		bottomPanel.add(panel);
 
 		JPanel panel2 = new JPanel();
-		JButton btnMod = new JButton("ìˆ˜ì •");
+		JButton btnMod = new JButton("¼öÁ¤");
 		JButton btnDel = new JButton("Delete");
-		JButton btnBack = new JButton("ë’¤ë¡œê°€ê¸°");
+		JButton btnBack = new JButton("µÚ·Î°¡±â");
 		panel2.add(btnMod);
 		panel2.add(btnDel);
 		panel2.add(btnBack);
@@ -131,43 +130,28 @@ public class ShowTask extends JFrame {
 		setLocationRelativeTo(null);
 
 		setSize(900, 500);
-		setTitle("ì—…ë¬´ í™•ì¸ í˜ì´ì§€");
+		setTitle("¾÷¹« È®ÀÎ ÆäÀÌÁö");
 		setVisible(true);
-		
-		//Observer Pattern
-		Subscriber page = new Subscriber();
-		Observer ob1 = new TaskObserver();
-		page.subscribe(ob1);
 
 		btnMod.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// ì„ íƒí•œ ì¤„ (row)ë²ˆí˜¸ ì•Œì•„ë‚´ê¸°
+				// ¼±ÅÃÇÑ ÁÙ (row)¹øÈ£ ¾Ë¾Æ³»±â
 				int rowIndex = tableView.getSelectedRow();
 				System.out.println(rowIndex);
 				UpdateFile(rowIndex, group, tfName, tfMember, tfStartday, tfEndday);
-				// ì„ íƒ ì•ˆí•˜ê³  ëˆ„ë¥¼ ê²½ìš°
-				if (rowIndex == -1)
-					JOptionPane.showMessageDialog(null, "ì•„ë¬´ê²ƒë„ ì„ íƒì´ ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
-				// ì„ íƒí•˜ê³  ëˆ„ë¥¼ ê²½ìš°
-				else {
-					dispose();
-					
-					//Observer Pattern
-					page.renew();
-					
-					ShowTask showTask=new ShowTask();
-					showTask.ShowTask(user,group);
-				}
+				ShowTask showTask=new ShowTask();
+				showTask.ShowTask(user,group);
+
 			}
 		});
 
 		btnDel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// ì„ íƒí•œ ì¤„ (row)ë²ˆí˜¸ ì•Œì•„ë‚´ê¸°
+				// ¼±ÅÃÇÑ ÁÙ (row)¹øÈ£ ¾Ë¾Æ³»±â
 				int rowIndex = tableView.getSelectedRow();
-				// ì„ íƒ ì•ˆí•˜ê³  ëˆ„ë¥¼ ê²½ìš°
+				// ¼±ÅÃ ¾ÈÇÏ°í ´©¸¦ °æ¿ì
 				if (rowIndex == -1)
 					dispose();
 				model.removeRow(rowIndex);
@@ -176,7 +160,7 @@ public class ShowTask extends JFrame {
 			}
 		});
 
-		// ë’¤ë¡œê°€ê¸°
+		// µÚ·Î°¡±â
 		btnBack.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

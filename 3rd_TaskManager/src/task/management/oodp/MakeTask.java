@@ -21,8 +21,6 @@ import javax.swing.ListSelectionModel;
 
 import group.management.oodp.Group;
 import group.management.oodp.GroupDTO;
-import observer.design.pattern.oodp.*;
-import observer.design.pattern.oodp.Observer;
 import user.management.oodp.UserDTO;
 
 public class MakeTask extends JFrame{
@@ -123,12 +121,8 @@ public class MakeTask extends JFrame{
 		add(panel);
 		setSize(500,450);
 		setTitle("업무 등록 페이지");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
-		
-		//Observer Pattern
-		Subscriber page = new Subscriber();
-		Observer ob1 = new TaskObserver();
-		page.subscribe(ob1);
 		
 		
 		// 등록 버튼 눌렀을 때 
@@ -148,8 +142,6 @@ public class MakeTask extends JFrame{
 					    bos.write("!end!\n");
 						bos.close();
 						JOptionPane.showMessageDialog(null, t1.getText()+" 작업이 등록되었습니다.");
-						//Observer Pattern
-						page.renew();
 						dispose();
 				}catch(Exception ex) {
 						JOptionPane.showMessageDialog(null, "작업 등록이 실패했습니다.");
